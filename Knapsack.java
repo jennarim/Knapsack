@@ -1,6 +1,5 @@
 import java.lang.Math;
-import java.util.FileReader;
-import java.util.BufferedReader;
+
 public class Knapsack {
 	/* 
 	 * val wt | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
@@ -15,8 +14,20 @@ public class Knapsack {
 		int[] values = {1, 4, 5, 7};
 		int weightCap = 7;
 		
+		/* Displaying the items we're working with */
+		System.out.print("Weights: ");
+		for (int w : weights) {
+			System.out.print(w + " ");
+		}
+		System.out.println();
+		System.out.print("Values: ");
+		for (int v : values) {
+			System.out.print(v + " ");
+		}
+		System.out.println();
+		
 		int[][] knapArr = findKnapArr(weights, values, weightCap);
-		printKnapArray(knapArr, values, weights); // Displays our filled array
+//		printKnapArray(knapArr, values, weights); // Displays our filled array
 		System.out.println("Your knapsack contains: ");
 		fillSack(weights, values, weightCap, knapArr);
 	}
@@ -86,18 +97,6 @@ public class Knapsack {
 					System.out.print(" " + arr[row][col]);
 			}
 			System.out.println();
-		}
-	}
-	
-	public static int[][] readInKnapIn() {
-		try {
-			FileReader fr = new FileReader("Knapin.txt");
-			java.io.BufferedReader bf = new BufferedReader(fr);
-			
-			String line = "";
-			while (line = bf.readLine() != null) {
-				String[] values = line.split(" ");
-			}
 		}
 	}
 
