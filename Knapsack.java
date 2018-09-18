@@ -47,10 +47,10 @@ public class Knapsack {
 			else knapArr[0][weight] = 0;
 		
 		for (int item = 1; item < items; item++) { 
-			knapArr[item][0] = 0; 										// At a weight of 0, no matter what items I have, the sack should have NO items.
+			knapArr[item][0] = 0; 							// At a weight of 0, no matter what items I have, the sack should have NO items.
 			for (int weight = 1; weight <= weightCap; weight++) {   	 	// For each hypothetical weight,
-				if (weights[item] > weight) 								// If the item's weight is greater than our hypothetical weight,
-					knapArr[item][weight] = knapArr[item-1][weight]; 		// then the value has to be the one above (b/c we know for sure that the above item's weight is less than the hypothetical weight) 
+				if (weights[item] > weight) 					// If the item's weight is greater than our hypothetical weight,
+					knapArr[item][weight] = knapArr[item-1][weight]; 	// then the value has to be the one above (b/c we know for sure that the above item's weight is less than the hypothetical weight) 
 				else 													// If the item's weight is less, then compare the values between the item + remaining weight's value and the one above
 					knapArr[item][weight] = Math.max(values[item] + knapArr[item-1][weight-weights[item]], knapArr[item-1][weight]); /* values[item-1] is NOT THE SAME AS knapArr[item-1][weight] * values[item-1] refers to an item's value (taken from the *list*). it does not refer to the value of the item above it. */
 			}
@@ -64,17 +64,17 @@ public class Knapsack {
 	 * - displays the necessary items in our optimized knapsack
 	 */
 	public static void fillSack(int[] weights, int[] values, int weightCap, int[][] knapArr) {
-		int items = weights.length-1; 						// Total number of items (zero-based value)
+		int items = weights.length-1; 					// Total number of items (zero-based value)
 		int bestVal = knapArr[items][weightCap]; 			// The best possible value the knapsack can have (aka the bottom-right-most value)
 		int tmpWeight = weightCap, tmpItem = items, tmpVal = bestVal;
-		int[][] bestItems = new int[items+1][2];				// Array that contains the best knapsack's items 
-		int i = 0;											// i is the position of the bestItems array
+		int[][] bestItems = new int[items+1][2];			// Array that contains the best knapsack's items 
+		int i = 0;							// i is the position of the bestItems array
 		while (tmpItem >= 1) {
-			if (tmpVal != knapArr[tmpItem-1][tmpWeight]) {	// If the value doesn't come from the one above it,
-				bestItems[i][0] = values[tmpItem];			// then the item at that row must have been used. 
-				bestItems[i][1] = weights[tmpItem];			// Therefore, store that item's value and weight
-				tmpWeight -= weights[tmpItem];				// Adjust the weight,
-				i++;											// and we're ready to find the next item in bestItems
+			if (tmpVal != knapArr[tmpItem-1][tmpWeight]) {		// If the value doesn't come from the one above it,
+				bestItems[i][0] = values[tmpItem];		// then the item at that row must have been used. 
+				bestItems[i][1] = weights[tmpItem];		// Therefore, store that item's value and weight
+				tmpWeight -= weights[tmpItem];			// Adjust the weight,
+				i++;						// and we're ready to find the next item in bestItems
 			}
 			tmpItem--;
 			tmpVal = knapArr[tmpItem][tmpWeight];
